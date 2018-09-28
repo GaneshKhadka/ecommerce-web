@@ -51,6 +51,20 @@ Route::any('/get-product-price','ProductsController@getProductPrice');
 // Apply Coupon
 Route::post('/cart/apply-coupon','ProductsController@applyCoupon');
 
+// User login and register
+Route::get('/login-register','UsersController@userLoginRegister');  //added
+
+// User register form submit
+Route::post('/user-register','UsersController@register');  
+
+//users logout section
+Route::get('/user-logout','UsersController@logout');
+
+
+
+// check whether users already exists or not
+Route::match(['GET','POST'],'/check-email','UsersController@checkEmail');
+
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/admin/dashboard','AdminController@dashboard');	
 	Route::get('/admin/settings','AdminController@settings');
@@ -100,3 +114,6 @@ Route::get('/logout','AdminController@logout');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+// 59 completed

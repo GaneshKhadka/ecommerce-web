@@ -101,4 +101,52 @@ $(document).ready(function(){
 
 });
 
+$().ready(function(){
+	// alert("test");
+	// validating the register form on keyup
+	$("#registerForm").validate({
+       rules:{
+       	name:{
+       		required:true,
+       		minlength:2,
+       		accept: "[a-zA-Z]+"
+       	},
+       	password:{
+       		required:true,
+       		minlength:6
+       	},
+       	email:{
+       		required:true,
+       		email:true,
+       		remote:"/check-email"    // creating route for checking email already exists or not.
+       	 }
+       	},
+          messages:{
+          	name:{
+          		required: "Please enter your name",
+          		minlength: "Your enter name must be atleast 2 characters long",
+          		accept: "Your name must consists only letters"
+          	},
+             
+             password:{
+             	required:"Please provide your password",
+             	minlength:"Your password must be atleast 6 characters long"
+             },
+             email:{
+             	required:"Please enter your email",
+             	email:"Please enter a valid email",
+             	remote:"Email already exists!"
+             }
+          } 
+	});
+
+	// password strength script
+	 $('#myPassword').passtrength({
+        minChars: 6,
+        passwordToggle: true,
+        tooltip: true,
+        eyeImg : "/images/frontend_images/eye.svg" // toggle icon
+       });
+});
+
 
