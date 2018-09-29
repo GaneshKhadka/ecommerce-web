@@ -57,8 +57,17 @@ Route::get('/login-register','UsersController@userLoginRegister');  //added
 // User register form submit
 Route::post('/user-register','UsersController@register');  
 
+// User login form submit
+Route::post('/user-login','UsersController@login'); 
+
 //users logout section
 Route::get('/user-logout','UsersController@logout');
+
+// All this route comes after login
+Route::group(['middleware'=>['frontlogin']],function(){
+//users account
+Route::match(['get', 'post'], 'account','UsersController@account');
+});
 
 
 
@@ -116,4 +125,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-// 62 completed
+// 65  completed

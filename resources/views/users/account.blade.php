@@ -20,16 +20,23 @@
 
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
-						<h2>Login to your account</h2>
-						<form id="loginForm" name="loginForm" action="{{url('/user-login')}}" method="POST">{{ csrf_field() }}
-							<input name="email" type="email" placeholder="Email Address" />
-							<input name="password" type="password" placeholder="Password" />
-							<!-- <span>
-								<input type="checkbox" class="checkbox"> 
-								Keep me signed in
-							</span> -->
-							<button type="submit" class="btn btn-default">Login</button>
+						<h2>Update account</h2>
+						<form id="accountForm" name="accountForm" action="{{ url('/account') }}" method="POST"> {{ csrf_field() }}
+							<input value="{{ $userDetails->name }}" id="name" name="name" type="text" placeholder="Name"/>
+							<input id="address" name="address" type="text" placeholder="Address"/>
+							<input id="city" name="city" type="text" placeholder="City"/>
+							<input id="state" name="state" type="text" placeholder="State"/>
+							<select id="country" name="country">
+							<option value="">Select Country</option>
+							@foreach($countries as $country)
+							    <option value="{{ $country->country_name }}">{{ $country->country_name }}</option>
+							@endforeach
+                               </select>
+							<input style="margin-top: 10px;" id="pincode" name="pincode" type="text" placeholder="Pincode"/>
+							<input id="mobile" name="mobile" type="text" placeholder="Mobile"/>
+							<button type="submit" class="btn btn-default">Update</button>
 						</form>
+						
 					</div><!--/login form-->
 				</div>
 				<div class="col-sm-1">
@@ -37,13 +44,7 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
-						<h2>New User Signup!</h2>
-						<form id="registerForm" name="registerForm" action="{{ url('/user-register') }}" method="POST"> {{ csrf_field() }}
-							<input id="name" name="name" type="text" placeholder="Name"/>
-							<input id="email" name="email" type="email" placeholder="Email Address"/>
-							<input id="myPassword" name="password" type="password" placeholder="Password"/>
-							<button type="submit" class="btn btn-default">Signup</button>
-						</form>
+						<h2>Update password</h2>
 					</div><!--/sign up form-->
 				</div>
 			</div>

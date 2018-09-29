@@ -4,13 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Country;
 use Auth;
+use Session;
 
 class UsersController extends Controller
 {
 
    public function userLoginRegister(){
       return view('users.login_register');
+   }
+
+   public function login(Request $request){
+      if($request->isMethod('post')){
+         $data = $request->all();
+         // echo "<pre>"; print_r($data); die;
+         if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
+            Session::put('frontSession',$data['email']);
+            return redirect('/cart');
+         }else{
+            return redirect()->back()->with('flash_message_error','Invalid username or password!');
+         }
+      }
    }
 
    public function register(Request $request){
@@ -28,14 +43,24 @@ class UsersController extends Controller
          $user->password = bcrypt($data['password']);
          $user->save();
          if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
+            Session::put('frontSession',$data['email']);
             return redirect('/cart');
          }
         }
    	}
    }
 
+   public function account(){
+      $user_id = Auth::user()->id;
+      $userDetails = User::find($user_id);
+       // echo "<pre>"; print_r($userDetails); die;
+      $countries = Country::get();
+      return view('users.account')->with(compact('countries','userDetails'));
+   }
+
    public function logout(){
       Auth::logout();
+      Session::forget('frontSession');
       return redirect('/');
    }
 

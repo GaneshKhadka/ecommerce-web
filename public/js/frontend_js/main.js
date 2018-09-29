@@ -140,6 +140,28 @@ $().ready(function(){
           } 
 	});
 
+	// validating the login form on keyup
+	$("#loginForm").validate({
+       rules:{
+       	email:{
+       		required:true,
+       		email:true
+       	 },
+       	password:{
+       		required:true
+       	  }
+       	},
+          messages:{
+             email:{
+             	required:"Please enter your email",
+             	email:"Please enter a valid email"
+             },
+             password:{
+             	required:"Please provide your password"
+             }
+          } 
+	});
+
 	// password strength script
 	 $('#myPassword').passtrength({
         minChars: 6,
