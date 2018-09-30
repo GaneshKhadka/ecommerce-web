@@ -140,6 +140,70 @@ $().ready(function(){
           } 
 	});
 
+  // validating the register form on keyup
+  $("#accountForm").validate({
+       rules:{
+        name:{
+          required:true,
+          minlength:2,
+          accept: "[a-zA-Z]+"
+        },
+        address:{
+          required:true,
+          minlength:6
+        },
+        city:{
+          required:true,
+           minlength:2
+         },
+          state:{
+          required:true,
+           minlength:2
+         },
+          country:{
+          required:true,
+         },
+          pincode:{
+          required:true,
+         },
+         mobile:{
+          required:true,
+           minlength:10
+         }
+        },
+          messages:{
+            name:{
+              required: "Please enter your name",
+              minlength: "Your enter name must be atleast 2 characters long",
+              accept: "Your name must consists only letters"
+            },
+             
+             address:{
+              required:"Please provide your address",
+              minlength:"Your address must be atleast 6 characters long",
+             },
+             city:{
+              required:"Please provide your city name",
+              minlength:"Your city must be atleast 2 characters long"
+             },
+             state:{
+              required:"Please provide your state name",
+              minlength:"Your state must be atleast 2 characters long"
+             },
+             country:{
+              required:"Please select your country name",
+             },
+             pincode:{
+              required:"Please provide your pincode",
+              minlength:"Your pincode must be atleast 6 characters long"
+             },
+             mobile:{
+              required:"Please provide your contact number",
+              minlength:"Your contact number must be atleast 10 characters long"
+             }
+          } 
+  });
+
 	// validating the login form on keyup
 	$("#loginForm").validate({
        rules:{

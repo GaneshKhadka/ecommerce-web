@@ -125,4 +125,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-// 65  completed
+// 66  completed
