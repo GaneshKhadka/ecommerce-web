@@ -7,6 +7,7 @@ use App\User;
 use App\Country;
 use Auth;
 use Session;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -95,6 +96,36 @@ class UsersController extends Controller
          return redirect()->back()->with('flash_message_success','Your account details has been updated successfully!');
       }
       return view('users.account')->with(compact('countries','userDetails'));
+   }
+
+   public function chkUserPassword(Request $request){
+     $data = $request->all();
+      // echo "<pre>"; print_r($data); die;
+      $current_password = $data['current_pwd'];
+      $user_id = Auth::User()->id;
+      $check_password = User::where('id',$user_id)->first();
+      if(Hash::check($current_password,$check_password->password)){
+         echo "true"; die;
+      } else{
+         echo "false"; die;
+      }
+     }
+
+
+   public function updatePassword(Request $request){
+     if($request->isMethod('post')){
+       $data = $request->all();
+       // echo "<pre>"; print_r($data); die;
+       $old_pwd = User::where('id',Auth::User()->id)->first();
+       $current_pwd = $data['current_pwd'];
+       if(Hash::check($current_pwd,$old_pwd->password)){
+        $new_pwd = bcrypt($data['new_pwd']);
+        User::where('id',Auth::User()->id)->update(['password'=>$new_pwd]);
+        return redirect()->back()->with('flash_message_success','New Password updated successfully!');
+       }else{
+        return redirect()->back()->with('flash_message_error','Current Password is incorrect!');
+       }
+     }
    }
 
    public function logout(){

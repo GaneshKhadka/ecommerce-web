@@ -67,6 +67,13 @@ Route::get('/user-logout','UsersController@logout');
 Route::group(['middleware'=>['frontlogin']],function(){
 //users account
 Route::match(['get', 'post'], 'account','UsersController@account');
+
+//check user current password
+Route::post('/check-user-pwd','UsersController@chkUserPassword'); 
+
+//update user password
+Route::post('/update-user-pwd','UsersController@updatePassword');
+
 });
 
 
@@ -125,4 +132,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-// 66  completed
+  // 68 5.42  completed
+
+
+
+
+
+
+
